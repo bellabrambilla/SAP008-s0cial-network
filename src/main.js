@@ -1,5 +1,7 @@
-//import das funções: {logInWithEmailAndPassword,signInWithGoogle} from "./lib/index.js"
-//import dos templates: login from "./pages/login/index.js";
+import {router} from "./navigation/router.js"
 
-//const HTML onde as páginas serão printadas
-const main = document.querySelector("#root");
+//eventos das rotas
+
+window.addEventListener("hashchange",router);  
+window.addEventListener("load",router);
+
