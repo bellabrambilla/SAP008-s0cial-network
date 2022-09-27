@@ -1,61 +1,78 @@
-import { logInWithEmailAndPassword,signInWithGoogle} from "../../lib/services.js";
+import {
+  logInWithEmailAndPassword,
+  signInWithGoogle,
+} from "../../lib/services.js";
 import { navigateTo } from "../../navigation/navigate.js";
 export default () => {
-  let containerLogin = document.createElement("div")
-  
+  let containerLogin = document.createElement("div");
+
   const loginHtml = `
-  <header>Logo</header>
-    <main>
+    <div class="telaLogin">
+      <div class="logo">
+        <img class="imagem" src="../img/logo.jpg">
+      </div>
       <form class="login" id="form">
-        <div class="email">
-          <label for="e-mail">E-mail</label>
-          <input type="email" class="input" id="e-mail" />
-        </div>
-        <div class="password">
-          <label for="password">Senha</label>
-          <input type="password" class="input" id="password" />
+        <div class="inputs">
+          <div class="email input2">
+            <label for="e-mail">E-mail</label>
+            <input type="email" class="input" id="e-mail" placeholder="Digite seu e-mail" />
+          </div>
+          <div class="password input2">
+            <label for="password">Senha</label>
+            <input type="password" class="input" id="password" placeholder="Digite sua senha" />
+          </div>
         </div>
         <div class="login-error"></div>
         <div class="btns">
-        <button class="btn" id="btn-login" type="submit">Entrar</button>
-        <button class="btn" id="btn-login-Google" type="button">Entrar com Google</button>
-        <button class="btn" id="btn-create-account">Criar conta</button>
-      </div>
+          <button class="btn" id="btn-login" type="submit">Entrar</button>
+          <button class="btn" id="btn-login-Google" type="button">Entrar com Google</button>
+          <button class="btn" id="btn-create-account">Criar conta</button>
+        </div>
+        <div class="forgotPassword">
+          <a href="#" class="forgotLink" id="forgotPassword">Esqueci minha senha</a>
+        </div>
       </form>    
-    </main>
-    <footer></footer> 
+        <footer class="footerInfo">Desenvolvido por Isabella e Sara,2022</footer> 
+    </div>
   `;
-  containerLogin.innerHTML =loginHtml;
-  
-  const inputEmail= containerLogin.querySelector("#e-mail");
-  const inputPassword= containerLogin.querySelector("#password");
-  const btnLogin= containerLogin.querySelector("#btn-login");
-  const btnCreateAccount= document.querySelector("#btn-create-account");
+  containerLogin.innerHTML = loginHtml;
+
+  const inputEmail = containerLogin.querySelector("#e-mail");
+  const inputPassword = containerLogin.querySelector("#password");
+  const btnLogin = containerLogin.querySelector("#btn-login");
+  const btnCreateAccount = containerLogin.querySelector("#btn-create-account");
   const form = containerLogin.querySelector("#form");
-  const btnLoginGoogle =containerLogin.querySelector("#btn-login-Google")
-  
+  const btnLoginGoogle = containerLogin.querySelector("#btn-login-Google");
+
   //Eventos da tela de login
   const login = (event) => {
     event.preventDefault();
-    logInWithEmailAndPassword(inputEmail.value, inputPassword.value)
-    .then(()=>{
-      navigateTo("#create-profile");
-    });
-
+    logInWithEmailAndPassword(inputEmail.value, inputPassword.value);
+    // .then(()=>{
+    //   navigateTo("#home");
+    // })
+    // .catch((error) => {
+    //   alert(error + "Revise suas informações!");
+    // });
   };
   btnLogin.addEventListener("click", login);
-  form.addEventListener("submit",login);
-  
-  const googleLogin =(event) =>{
+  form.addEventListener("submit", login);
+
+  const googleLogin = (event) => {
     event.preventDefault();
     signInWithGoogle();
-  }
-  btnLoginGoogle.addEventListener("click",googleLogin);
+    // .then(()=>{
+    //   navigateTo("#profile");
+    // })
+  };
+  btnLoginGoogle.addEventListener("click", googleLogin);
 
-  // btnCreateAccount.addEventListener("click",)
-  // window.location.hash="#register"
-  
+  const account = (event) => {
+    event.preventDefault();
+    navigateTo("#register");
+  };
+
+  btnCreateAccount.addEventListener("click", account);
+
   return containerLogin;
-
-}
-  
+};

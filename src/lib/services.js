@@ -1,6 +1,6 @@
 import { firebaseApp } from "./config.js";
 import{getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
-
+import { navigateTo } from "../../navigation/navigate.js";
 
 // iniciando autenticação
 const auth = getAuth(firebaseApp);
@@ -27,6 +27,7 @@ export const logInWithEmailAndPassword =(email, pass) => {
   .then((userCredential) => {
     const user = userCredential.user;
     console.log("logou", user);
+    navigateTo("#home");
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -46,7 +47,7 @@ export const logInWithEmailAndPassword =(email, pass) => {
     // The signed-in user info.
     const user = result.user;
     console.log(token, user);
-    window.location.hash="#home";
+    navigateTo("#profile");
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;

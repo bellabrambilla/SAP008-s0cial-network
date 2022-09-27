@@ -20,7 +20,7 @@ export const router= ()=>{
         case "#register":
             main.appendChild(cadastro());
             break;
-        case "#create-profile":
+        case "#profile":
             main.appendChild(criarperfil());
             break;
         default:
