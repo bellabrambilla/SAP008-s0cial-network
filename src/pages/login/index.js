@@ -5,9 +5,10 @@ import {
 import { navigateTo } from "../../navigation/navigate.js";
 export default () => {
   let containerLogin = document.createElement("div");
+  containerLogin.className= "telaLogin"
 
   const loginHtml = `
-    <div class="telaLogin">
+    
       <div class="logo">
         <img class="imagem" src="../img/logo.jpg">
       </div>
@@ -33,7 +34,7 @@ export default () => {
         </div>
       </form>    
         <footer class="footerInfo">Desenvolvido por Isabella e Sara,2022</footer> 
-    </div>
+    
   `;
   containerLogin.innerHTML = loginHtml;
 
