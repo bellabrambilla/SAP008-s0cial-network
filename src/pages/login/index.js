@@ -6,26 +6,28 @@ import { navigateTo } from "../../navigation/navigate.js";
 export default () => {
   let containerLogin = document.createElement("div");
   containerLogin.className= "telaLogin"
-
   const loginHtml = `
-    
+      <div class="desktop">Loren\fvbbdsvj</div>
       <div class="logo">
-        <img class="imagem" src="../img/logo.jpg">
+        <img class="imagem" src="../img/miawpaw.png">
       </div>
       <form class="login" id="form">
         <div class="inputs">
           <div class="email input2">
             <label for="e-mail">E-mail</label>
-            <input type="email" class="input" id="e-mail" placeholder="Digite seu e-mail" />
+            <input type="email" class="input" id="e-mail" />
           </div>
           <div class="password input2">
             <label for="password">Senha</label>
-            <input type="password" class="input" id="password" placeholder="Digite sua senha" />
+            <input type="password" class="input" id="password"  />
           </div>
         </div>
         <div class="login-error"></div>
         <div class="btns">
           <button class="btn" id="btn-login" type="submit">Entrar</button>
+          <div class="dot">
+          &#9679
+          </div>
           <button class="btn" id="btn-login-Google" type="button">Entrar com Google</button>
           <button class="btn" id="btn-create-account">Criar conta</button>
         </div>
