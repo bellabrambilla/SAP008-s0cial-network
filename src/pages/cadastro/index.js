@@ -1,5 +1,6 @@
 //Importar serviço, se houver.
-import {signUp} from "../../lib/services.js";
+import { signUp } from "../../lib/services.js";
+import { navigateTo } from "../../navigation/navigate.js";
 
 export default () => {
   let containerRegister = document.createElement("div");

@@ -50,31 +50,47 @@ export default () => {
   //Eventos da tela de login
   const login = (event) => {
     event.preventDefault();
-    logInWithEmailAndPassword(inputEmail.value, inputPassword.value);
-    // .then(()=>{
-    //   navigateTo("#home");
-    // })
-    // .catch((error) => {
-    //   alert(error + "Revise suas informações!");
-    // });
+    logInWithEmailAndPassword(inputEmail.value, inputPassword.value)
+    .then(()=>{
+      navigateTo("#home");
+    })
+    .catch((error) => {
+      alert(error + "Revise suas informações!");
+    });
   };
   btnLogin.addEventListener("click", login);
   form.addEventListener("submit", login);
 
   const googleLogin = (event) => {
     event.preventDefault();
-    signInWithGoogle();
-    // .then(()=>{
-    //   navigateTo("#profile");
-    // })
+    signInWithGoogle()
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      console.log(token, user);
+      navigateTo("#profile");
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      // const email = error.customData.email;
+      // // The AuthCredential type that was used.
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(errorCode, ":", errorMessage);
+    });
   };
   btnLoginGoogle.addEventListener("click", googleLogin);
 
+  //navegação para o cadastro
   const account = (event) => {
     event.preventDefault();
     navigateTo("#register");
   };
-
+//evento da navegação
   btnCreateAccount.addEventListener("click", account);
 
   return containerLogin;
