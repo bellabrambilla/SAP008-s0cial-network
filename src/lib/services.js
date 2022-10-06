@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  //onAuthStateChanged
 } from "./firebase.js";
 
 // iniciando autenticação

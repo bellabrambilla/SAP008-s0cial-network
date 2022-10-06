@@ -105,3 +105,11 @@ a:hover{
     height: 100%;
     margin-top:10%
 }
+
+@media (min-width:481px) {
+    .desktop{
+        display:inline;
+        border:1px solid black;
+        flex-direction: column;
+    }
+}

@@ -7,7 +7,9 @@ export default () => {
   let containerLogin = document.createElement("div");
   containerLogin.className= "telaLogin"
   const loginHtml = `
-      <div class="desktop">Loren\fvbbdsvj</div>
+      <div class="desktop">Loren\fvbbdsvj
+      <img class="imagem" src="../img/wollball.png">
+      </div>
       <div class="logo">
         <img class="imagem" src="../img/miawpaw.png">
       </div>
