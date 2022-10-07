@@ -1,45 +1,71 @@
-import { firebaseApp } from "./config.js";
+import { firebaseApp} from "./config.js";
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  //onAuthStateChanged
+  onAuthStateChanged,
+  getFirestore,
+  collection, 
+  addDoc
 } from "./firebase.js";
 
 // iniciando autenticação
 const auth = getAuth(firebaseApp);
 
+//inicializando a firestore
+const store = getFirestore(firebaseApp);
+
+export async function createPost(post){
+  try{
+    const docRef = await addDoc(collection(store, "posts"),{}
+)
+console.log("Document written with ID: ", docRef.id)
+} catch(error){
+  console.error("Error adding document: ", error);
+}};
+
+
+    
+//set houver um usuário logado => faz alguma coisa (fazer função)
+// firebaseApp.auth().onAuthStateChanged((user)=>{
+//   console.log(user)
+// })
+//fazer função para pegar os dados de usuário
+// const user = auth.currentUser;
+// if (user !== null) {
+  // The user object has basic properties such as display name, email, etc.
+  // const displayName = user.displayName;
+  // const email = user.email;
+  // const photoURL = user.photoURL;
+  // const emailVerified = user.emailVerified;
+
+  // The user's ID, unique to the Firebase project. Do NOT use
+  // this value to authenticate with your backend server, if
+  // you have one. Use User.getToken() instead.
+  // const uid = user.uid;
+// }
+
 //As funções descritas na documentação serão inicializadas e escritas aqui. LEMBRAR de exportá-las para os templates!
 
 export function signUp(email, pass) {
   createUserWithEmailAndPassword(auth, email, pass)
-    // .then((userCredential) => {
-    //   // Signed in
-    //   const user = userCredential.user;
-    //   console.log("entrou", user);
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   console.log(errorCode, ":", errorMessage);
-    // });
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      console.log("entrou", user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, ":", errorMessage);
+    });
 }
 
 //login com e-mail e senha
 export const logInWithEmailAndPassword = (email, pass) => {
   return signInWithEmailAndPassword(auth, email, pass);
-  // .then((userCredential) => {
-  //   const user = userCredential.user;
-  //   console.log("logou", user);
-  //   navigateTo("#home");
-  // })
-  // .catch((error) => {
-  //   const errorCode = error.code;
-  //   const errorMessage = error.message;
-  //   console.log(errorCode, ":", errorMessage);
-  // });
 };
 
 //login com Google
