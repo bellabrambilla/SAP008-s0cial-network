@@ -6,5 +6,6 @@ export {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
- // onAuthStateChanged
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+export{getFirestore, collection, addDoc} from "https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js";
