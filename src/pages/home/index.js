@@ -1,4 +1,6 @@
-import { createPost } from "../../lib/services.js";
+import { addDoc } from "../../lib/firebase.js";
+import { templatePost,createPost } from "../../lib/services.js";
+
 
 export default () => {
     let containerHome= document.createElement("div");
@@ -30,19 +32,16 @@ export default () => {
     const btnPost = containerHome.querySelector("#btnPost");
     const textPost= containerHome.querySelector("#inputPost");
     let printPost= containerHome.querySelector("#printPost");
-    const post = {
-    text: textPost,
-    user_id:"Admin",
-    likes:0 ,
-    comments: 0,
-    data: 0, 
-    }
-    
+   
     const postCreation = (event)=>{
       event.preventDefault();
-      createPost(post)
-    };  
-    printPost.innerHTML= textPost.value;
+      const template=textPost.value
+      createPost(templatePost(template))
+      console.log()
+      }
+      
+  
+    printPost.conteinerHome= textPost.value
     
     btnPost.addEventListener("click", postCreation);
     return containerHome;

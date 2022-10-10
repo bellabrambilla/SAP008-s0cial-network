@@ -17,23 +17,44 @@ const auth = getAuth(firebaseApp);
 //inicializando a firestore
 const store = getFirestore(firebaseApp);
 
-export async function createPost(post){
-  try{
-    const docRef = await addDoc(collection(store, "posts"),{}
-)
-console.log("Document written with ID: ", docRef.id)
-} catch(error){
-  console.error("Error adding document: ", error);
-}};
+export const createCollection = collection(store,"posts")
 
+export function templatePost(text){
+   const post ={
+    name: auth.currentUser.displayName,
+    text:text,
+    user_id:"Admin",
+    likes:[] ,
+    comments: 0,
+    data: 0, 
+  }
+return post;  
+}
 
+export const createPost = (post)=>{
+ addDoc(createCollection, post)
+};
+
+// try {
+//   const docRef = await addDoc(collection(store, "posts"), {
+//     name: "Sara",
+    // text:"",
+    // user_id:"Admin",
+    // likes:[] ,
+    // comments: 0,
+    // data: 0, 
+//   });
+//   console.log("Document written with ID: ", docRef.id);
+// } catch (e) {
+//   console.error("Error adding document: ", e);
+// }
     
 //set houver um usuário logado => faz alguma coisa (fazer função)
 // firebaseApp.auth().onAuthStateChanged((user)=>{
 //   console.log(user)
 // })
 //fazer função para pegar os dados de usuário
-// const user = auth.currentUser;
+// const user = autcurrentUser;
 // if (user !== null) {
   // The user object has basic properties such as display name, email, etc.
   // const displayName = user.displayName;
