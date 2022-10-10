@@ -4,10 +4,13 @@ import { navigateTo } from "../../navigation/navigate.js";
 
 export default () => {
   let containerRegister = document.createElement("div");
-
+  containerLogin.className= "desktopTelaCadastro"
   const register = `<header>mia.www</header>
 
-  <main>
+  <figure><img logo></figure>
+  <text>Lorenbbdsvj</text>
+  <figure><img novelo></figure>
+  <div class="telaCadastro">
     <button class="btn" id="btn-entrar-Google">Entrar com Google</button>
       <form id="form" class="register">
         <div class="emailRegister">
@@ -28,7 +31,7 @@ export default () => {
         </div>
           <button class="btn" id="btnRegister">Cadastre-se</button>
       </form>
-  </main>
+  </div>
   `;
   containerRegister.innerHTML = register;
   const email = containerRegister.querySelector("#emailRegister");
