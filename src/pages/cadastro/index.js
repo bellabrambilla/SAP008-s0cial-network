@@ -4,12 +4,14 @@ import { navigateTo } from "../../navigation/navigate.js";
 
 export default () => {
   let containerRegister = document.createElement("div");
-  containerLogin.className= "desktopTelaCadastro"
-  const register = `<header>mia.www</header>
-
-  <figure><img logo></figure>
-  <text>Lorenbbdsvj</text>
-  <figure><img novelo></figure>
+  containerRegister.className= "desktopTelaCadastro"
+  const register = `
+  <div class="desktop">
+    <img class="imagem" src="../img/wollball.png">
+  </div>
+  <header>
+    <img class="logoCadastro" src="../img/cadastro.png">
+  </header>
   <div class="telaCadastro">
     <button class="btn" id="btn-entrar-Google">Entrar com Google</button>
       <form id="form" class="register">

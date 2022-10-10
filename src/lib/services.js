@@ -19,6 +19,7 @@ const store = getFirestore(firebaseApp);
 
 export const createCollection = collection(store,"posts")
 
+//Migrar para outra pasta
 export function templatePost(text){
    const post ={
     name: auth.currentUser.displayName,
@@ -32,22 +33,9 @@ return post;
 }
 
 export const createPost = (post)=>{
- addDoc(createCollection, post)
+ return addDoc(createCollection, post)
 };
 
-// try {
-//   const docRef = await addDoc(collection(store, "posts"), {
-//     name: "Sara",
-    // text:"",
-    // user_id:"Admin",
-    // likes:[] ,
-    // comments: 0,
-    // data: 0, 
-//   });
-//   console.log("Document written with ID: ", docRef.id);
-// } catch (e) {
-//   console.error("Error adding document: ", e);
-// }
     
 //set houver um usuário logado => faz alguma coisa (fazer função)
 // firebaseApp.auth().onAuthStateChanged((user)=>{

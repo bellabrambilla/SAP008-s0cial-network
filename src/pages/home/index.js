@@ -35,14 +35,17 @@ export default () => {
    
     const postCreation = (event)=>{
       event.preventDefault();
+      //pensar em type error pra texto vazio
       const template=textPost.value
       createPost(templatePost(template))
-      console.log()
+      .then(()=>{
+        printPost.innerHTML+= template
+      })
+      .catch((error) => {
+        alert(error + "Algo deu errado, tente novamente");
+      });
       }
       
-  
-    printPost.conteinerHome= textPost.value
-    
     btnPost.addEventListener("click", postCreation);
     return containerHome;
   }
