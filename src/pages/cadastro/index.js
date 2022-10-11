@@ -24,26 +24,30 @@ export default () => {
           <input type="text" class="input" id="nameRegister">
         </div>
         <div class="usernameRegister">
-          <label for="nome de usuario">Nome de usuário</label>
-          <input type="text" class="input" id="usernameRegister">
+          <label for="displayName">Nome do gato</label>
+          <input type="text" class="input" id="displayName">
         </div>
         <div class="passwordRegister">
           <label for="senha">Senha</label>
           <input type="text" class="input" id="passwordRegister">
         </div>
-          <button class="btn" id="btnRegister">Cadastre-se</button>
+          <button class="btn" id="btnRegister" type="submit">Cadastre-se</button>
       </form>
   </div>
   `;
   containerRegister.innerHTML = register;
   const email = containerRegister.querySelector("#emailRegister");
   const pass = containerRegister.querySelector("#passwordRegister");
-  const btnReg = containerRegister.querySelector("#btnRegister");
+  const name = containerRegister.querySelector("#displayName");
+  const form = containerRegister.querySelector("#form");
+  
   const newUser = (event) => {
     event.preventDefault()
-    return signUp(email.value, pass.value)
+    return signUp(email.value, pass.value, name.value)
+    
   }
-  btnReg.addEventListener("click", newUser);
+
+  form.addEventListener("submit", newUser);
 
   return containerRegister;
 };

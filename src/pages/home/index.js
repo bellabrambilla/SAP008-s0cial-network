@@ -1,10 +1,10 @@
-import { addDoc } from "../../lib/firebase.js";
-import { templatePost,createPost } from "../../lib/services.js";
+import { getAuth} from "../../lib/firebase.js";
+import { templatePost,createPost, } from "../../lib/services.js";
 
-
+const auth = getAuth()
 export default () => {
     let containerHome= document.createElement("div");
-    
+    console.log(auth)
     const home = `
     <header>
       <nav>
@@ -12,7 +12,7 @@ export default () => {
       </nav>
     </header>
     <section class="wellcome">
-    Bem-vinde, NOME
+    Bem-vinde, ${auth.currentUser.displayName}
     </section>
     <section class="post">
      <form id="formPost">

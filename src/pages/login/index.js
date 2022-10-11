@@ -44,7 +44,6 @@ export default () => {
 
   const inputEmail = containerLogin.querySelector("#e-mail");
   const inputPassword = containerLogin.querySelector("#password");
-  const btnLogin = containerLogin.querySelector("#btn-login");
   const btnCreateAccount = containerLogin.querySelector("#btn-create-account");
   const form = containerLogin.querySelector("#form");
   const btnLoginGoogle = containerLogin.querySelector("#btn-login-Google");
@@ -60,7 +59,7 @@ export default () => {
       alert(error + "Revise suas informações!");
     });
   };
-  btnLogin.addEventListener("click", login);
+  
   form.addEventListener("submit", login);
 
   const googleLogin = (event) => {

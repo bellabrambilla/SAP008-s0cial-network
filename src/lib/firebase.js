@@ -3,6 +3,8 @@ export {firebaseApp} from "./config.js";
 export {
   getAuth,
   signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
