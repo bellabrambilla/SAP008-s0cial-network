@@ -39,7 +39,7 @@ export default () => {
       const template=textPost.value
       createPost(templatePost(template))
       .then(()=>{
-        printPost.innerHTML+= template
+        printPost.innerHTML += template;
       })
       .catch((error) => {
         alert(error + "Algo deu errado, tente novamente");

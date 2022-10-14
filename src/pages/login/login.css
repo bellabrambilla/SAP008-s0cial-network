@@ -8,9 +8,15 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background:linear-gradient(180deg, rgba(213, 228, 202, 0.44) 0.63%, rgba(158, 233, 243, 0.94) 18.85%, rgba(224, 201, 244, 0.85) 52.84%, rgba(248, 189, 187, 0.64) 76.67%, #FFD994 100%) no-repeat;
+    background:  linear-gradient(180deg, rgba(183, 196, 244, 0.46) 0%, rgba(183, 209, 244, 0.46) 46.7%, rgba(180, 237, 245, 0.276) 64.51%, rgba(183, 196, 244, 0) 100%);
+    
 }
 
+.conteiner-login{
+    background:linear-gradient(180deg, rgba(213, 228, 202, 0.44) 0.63%, rgba(158, 233, 243, 0.94) 18.85%, rgba(224, 201, 244, 0.85) 52.84%, rgba(248, 189, 187, 0.64) 76.67%, #FFD994 100%) no-repeat;
+    max-width:400px;
+    max-height:844px;
+}
 .logo{ 
    margin-left: 15%;
    margin-top:10%;
@@ -31,10 +37,12 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    font-size: 2vh;
 
 }
 .input2{
     align-self: center;
+    width: 65%;
 }
 
 .input{
@@ -44,10 +52,14 @@
     border-bottom: solid rgba(128, 128, 128, 0.297);
 }
 
-
+.login-error{
+    color: red;
+    align-self:center;
+    margin-left:10%;
+}
 .btns{
     position: relative;
-    margin-top:75px;
+    margin-top:60px;
     display: flex;
     flex-direction: column;
 
@@ -57,7 +69,7 @@
     border-radius: 10px;
     background-color: #B7E8F4;
     height: 50px;
-    width: 75%;
+    width: 70%;
     margin-top: 10px;
     border: none;
     align-self: center;
@@ -89,10 +101,17 @@ a:hover{
     color: darkblue;
 }
 
-.footerInfo{
-    background-color:rgb(235, 245, 245);
-    height: 100%;
-    margin-top:10%
+.forgot-password{
+    padding:10%;
+}
+.footer-info{
+    background-color:#cbd5f9c5;
+    display: flex;
+    justify-content: center;
+    padding: 3%;
+}
+p{
+    align-self: center;
 }
 
 @media (min-width:481px) {
@@ -100,5 +119,8 @@ a:hover{
         display:inline;
         border:1px solid black;
         flex-direction: column;
+    }
+    .conteiner-login{
+        margin-left:50%;
     }
 }

@@ -8,15 +8,15 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   getFirestore,
-  collection, 
+  collection,
   addDoc,
-  updateProfile
+  updateProfile,
 } from "./firebase.js";
 
 // iniciando autenticação
 const auth = getAuth(firebaseApp);
 
-//inicializando a firestore
+// inicializando a firestore
 const store = getFirestore(firebaseApp);
 
 

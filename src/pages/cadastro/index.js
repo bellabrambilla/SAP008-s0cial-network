@@ -1,10 +1,10 @@
-//Importar serviço, se houver.
+// Importar serviço, se houver.
 import { signUp } from "../../lib/services.js";
 import { navigateTo } from "../../navigation/navigate.js";
 
 export default () => {
-  let containerRegister = document.createElement("div");
-  containerRegister.className= "desktopTelaCadastro"
+  const containerRegister = document.createElement("div");
+  containerRegister.className = "desktopTelaCadastro"
   const register = `
   <div class="desktop">
     <img class="imagem" src="../img/wollball.png">
@@ -40,12 +40,10 @@ export default () => {
   const pass = containerRegister.querySelector("#passwordRegister");
   const name = containerRegister.querySelector("#displayName");
   const form = containerRegister.querySelector("#form");
-  
   const newUser = (event) => {
-    event.preventDefault()
-    return signUp(email.value, pass.value, name.value)
-    
-  }
+    event.preventDefault();
+    return signUp(email.value, pass.value, name.value);
+  };
 
   form.addEventListener("submit", newUser);
 
