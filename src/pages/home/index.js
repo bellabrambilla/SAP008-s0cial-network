@@ -1,11 +1,11 @@
-import { getAuth} from "../../lib/firebase.js";
-import { templatePost,createPost, } from "../../lib/services.js";
+import { getAuth } from '../../lib/firebase.js';
+import { templatePost, createPost } from '../../lib/services.js';
 
-const auth = getAuth()
+const auth = getAuth();
 export default () => {
-    let containerHome= document.createElement("div");
-    console.log(auth)
-    const home = `
+  const containerHome = document.createElement('div');
+  console.log(auth);
+  const home = `
     <header>
       <nav>
       Menu
@@ -26,26 +26,26 @@ export default () => {
     <footer>
     </footer>
     `;
-    containerHome.innerHTML = home;
-    
-    const form = containerHome.querySelector("#formPost");
-    const btnPost = containerHome.querySelector("#btnPost");
-    const textPost= containerHome.querySelector("#inputPost");
-    let printPost= containerHome.querySelector("#printPost");
-   
-    const postCreation = (event)=>{
-      event.preventDefault();
-      //pensar em type error pra texto vazio
-      const template=textPost.value
-      createPost(templatePost(template))
-      .then(()=>{
+  containerHome.innerHTML = home;
+
+  const form = containerHome.querySelector('#formPost');
+  const btnPost = containerHome.querySelector('#btnPost');
+  const textPost = containerHome.querySelector('#inputPost');
+  const printPost = containerHome.querySelector('#printPost');
+
+  const postCreation = (event) => {
+    event.preventDefault();
+    // pensar em type error pra texto vazio
+    const template = textPost.value;
+    createPost(templatePost(template))
+      .then(() => {
         printPost.innerHTML += template;
       })
       .catch((error) => {
-        alert(error + "Algo deu errado, tente novamente");
+        alert(`${error}Algo deu errado, tente novamente`);
       });
-      }
-      
-    btnPost.addEventListener("click", postCreation);
-    return containerHome;
-  }
+  };
+
+  btnPost.addEventListener('click', postCreation);
+  return containerHome;
+};
