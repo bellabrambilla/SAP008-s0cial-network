@@ -3,6 +3,8 @@ import { templatePost, createPost, getPosts, editPosts } from "../../lib/service
 export default () => {
   let containerHome = document.createElement("div");
 
+
+  //TROCAR CLASSES TAGS ESTILOS CSS
   const home = `
     <header>
       <nav>
@@ -49,20 +51,34 @@ export default () => {
     printPost.innerHTML = "";
     result.forEach((doc) => {
       const data = doc.data();
-      const div = document.createElement('div');
-      div.className = "contentPost"
+      const div = document.createElement("div");
+      div.className = "contentPost";
       div.innerHTML = `<hr>
         
         <p>${data.user_id}</p>
-        <p>${data.text}</p>
+        <p class="text-post" id="textPost" contenteditable="false">${data.text}</p>
+        <button type="button" class="edit-button" id="editPost" data-edit="${doc.id}">Editar</button>
+        <button type="button" class="delete-button">Excluir</button>
+
         <hr>
         `;
-        //elementopai.insertBefor (elemento novo, elemento de referência.childNodes[posição])
-        printPost.insertBefore(div, printPost.childNodes[0]);
+      //elementopai.insertBefore (elemento novo, elemento de referência.childNodes[posição])
+      printPost.insertBefore(div, printPost.childNodes[0]);
+
+      const editButton = containerHome.querySelector("#editPost");
+      const editText = containerHome.querySelector("#textPost");
+      const editId = editButton.getAttribute("data-edit");
+      editButton.addEventListener("click", () => {
+        if 
+
+      });
+      console.log(editText);
+      // editPosts(text, postId).then(() => document. location. reload());
     });
   });
   
-  // editPosts(text, postId).then(() => document. location. reload());
+
+
 
   return containerHome;
 };
