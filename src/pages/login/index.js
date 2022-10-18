@@ -91,7 +91,7 @@ export default () => {
         // The signed-in user info.
         const user = result.user;
         console.log(token, user);
-        navigateTo('#profile');
+        navigateTo('#home');
       }).catch((error) => {
       // Handle Errors here.
         const errorCode = error.code;

@@ -9,6 +9,11 @@ import {
   getFirestore,
   collection,
   addDoc,
+  query,
+  getDocs,
+  doc, 
+  updateDoc,
+  orderBy
 } from './firebase.js';
 
 // iniciando autenticação
@@ -33,7 +38,24 @@ export function templatePost(text) {
   return post;
 }
 
-export const createPost = (post) => addDoc(createCollection, post);
+// Função posts
+export const createPost = (post) => {
+  return addDoc(createCollection, post);
+};
+
+export const getPosts = async () => {
+  const postDataBase = query(collection(store, "posts"));
+  return await getDocs(postDataBase);
+};
+
+export const editPosts = async (text, postId) => {
+  const docEdit = doc(store, "posts", postId);
+  return await updateDoc(docEdit , {
+    "text": text,
+    // "tag": hashTag,
+    // "data": currentDate
+});
+}
 
 // Função de cadastro
 export function signUp(email, pass, displayName, photoUrl) {
