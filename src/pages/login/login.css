@@ -1,0 +1,148 @@
+
+.itim{
+    font-family: 'Itim', cursive;
+    color: rgba(0, 0, 0, 0.46);
+}
+.inder{
+    font-family:'Inder', sans-serif;
+    color: rgba(0, 0, 0, 0.54);
+}
+.desktop{
+    display: none;
+}
+.telaLogin{
+    display: flex;
+    background:  linear-gradient(180deg, rgba(183, 196, 244, 0.46) 0%, rgba(183, 209, 244, 0.46) 46.7%, rgba(180, 237, 245, 0.276) 64.51%, rgba(183, 196, 244, 0) 100%);
+}
+
+.conteiner-login{
+    background:linear-gradient(180deg, rgba(213, 228, 202, 0.44) 0.63%, rgba(158, 233, 243, 0.94) 18.85%, rgba(224, 201, 244, 0.85) 52.84%, rgba(248, 189, 187, 0.64) 76.67%, #FFD994 100%) no-repeat;
+    display: flex;
+    justify-content: space-between;
+    min-height: 100vh;
+    width: 100%;
+    flex-direction: column;
+}
+.logo{ 
+   text-align: center;
+}
+
+.imagem{
+    max-width: 262px;
+    max-height: 302px;
+    width:auto;
+    height:auto;
+}
+
+.inputs{
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 2vh;
+
+}
+.input2{
+    align-self: center;
+    width: 65%;
+}
+
+.input{
+    width:100%;
+    background: transparent;
+    border:transparent;
+    border-bottom: solid rgba(128, 128, 128, 0.297);
+}
+
+.login-error{
+    color: red;
+    margin-left:25%;
+}
+.btns{
+    position: relative;
+    margin-top:60px;
+    display: flex;
+    flex-direction: column;
+
+}
+.btn{
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 10px;
+    background-color: #B7E8F4;
+    height: 50px;
+    width: 70%;
+    margin-top: 10px;
+    border: none;
+    align-self: center;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.btn:hover{
+    background-color: rgb(0, 242, 255);
+}
+
+
+#btn-login-Google{
+    margin-top: 5%;
+}
+
+.dot{
+    align-self:center;
+    margin-top:5%;
+    opacity:20%;
+}
+
+.forgot-password{
+    display: flex;
+    justify-content: center;
+    padding:7%;
+}
+
+a:hover{
+    color: darkblue;
+}
+.footer-info{
+    background-color:#d8dff9c5;
+    display: flex;
+    justify-content: center;
+    padding: 4%;
+}
+p{
+    align-self: center;
+    margin-bottom: 2%;
+}
+
+@media (min-width:500px) {
+    .desktop{
+        display:inline;
+        border:1px solid black;
+    }
+    .life-savers{
+        font-family:'Life Savers', cursive;
+    }
+    .telaLogin{
+        justify-content: space-evenly;
+        height: 100vh;
+        align-items: center;
+    }
+    .conteiner-login{
+        max-width:400px;
+        min-height:unset;
+        max-height:800px;
+
+    }
+    .title{
+        background-image: linear-gradient(90deg, rgba(188, 53, 191, 0.76) 3.77%, rgba(188, 53, 191, 0.575878) 11.49%, rgba(188, 53, 191, 0.5244) 36.36%, rgba(188, 53, 191, 0.37707) 52.66%, rgba(188, 53, 191, 0.319708) 68.95%, rgba(188, 53, 191, 0.234586) 85.25%);
+        color:purple;
+        background-clip: text;
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-size: 60px;
+    }
+    .text{
+        text-align: center;
+    }
+}

@@ -1,7 +1,6 @@
-import {router} from "./navigation/router.js"
+import { router } from './navigation/router.js';
 
-//eventos das rotas
+// eventos das rotas
 
-window.addEventListener("hashchange",router);  
-window.addEventListener("load",router);
-
+window.addEventListener('hashchange', router);
+window.addEventListener('load', router);
