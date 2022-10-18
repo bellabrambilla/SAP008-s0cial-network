@@ -1,81 +1,70 @@
-import { firebaseApp} from "./config.js";
+import { firebaseApp } from "./config.js";
+import { navigateTo } from "../navigation/navigate.js";
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  onAuthStateChanged,
   getFirestore,
-  collection, 
-  addDoc
+  collection,
+  addDoc,
+  updateProfile,
+  query,
+  getDocs,
+  doc, 
+  updateDoc,
 } from "./firebase.js";
 
 // iniciando autenticação
 const auth = getAuth(firebaseApp);
 
-//inicializando a firestore
+// inicializando a firestore
 const store = getFirestore(firebaseApp);
-
-export const createCollection = collection(store,"posts")
-
-export function templatePost(text){
-   const post ={
-    name: auth.currentUser.displayName,
-    text:text,
-    user_id:"Admin",
-    likes:[] ,
-    comments: 0,
-    data: 0, 
-  }
-return post;  
-}
-
-export const createPost = (post)=>{
- addDoc(createCollection, post)
-};
-
-// try {
-//   const docRef = await addDoc(collection(store, "posts"), {
-//     name: "Sara",
-    // text:"",
-    // user_id:"Admin",
-    // likes:[] ,
-    // comments: 0,
-    // data: 0, 
-//   });
-//   console.log("Document written with ID: ", docRef.id);
-// } catch (e) {
-//   console.error("Error adding document: ", e);
-// }
-    
-//set houver um usuário logado => faz alguma coisa (fazer função)
-// firebaseApp.auth().onAuthStateChanged((user)=>{
-//   console.log(user)
-// })
-//fazer função para pegar os dados de usuário
-// const user = autcurrentUser;
-// if (user !== null) {
-  // The user object has basic properties such as display name, email, etc.
-  // const displayName = user.displayName;
-  // const email = user.email;
-  // const photoURL = user.photoURL;
-  // const emailVerified = user.emailVerified;
-
-  // The user's ID, unique to the Firebase project. Do NOT use
-  // this value to authenticate with your backend server, if
-  // you have one. Use User.getToken() instead.
-  // const uid = user.uid;
-// }
+const db = getFirestore();
 
 //As funções descritas na documentação serão inicializadas e escritas aqui. LEMBRAR de exportá-las para os templates!
+export const createCollection = collection(store, "posts");
 
-export function signUp(email, pass) {
+//Migrar para outra pasta
+export function templatePost(text) {
+  const post = {
+    name: auth.currentUser.displayName,
+    text: text,
+    user_id: "Admin",
+    likes: [],
+    comments: 0,
+    data: 0,
+  };
+  return post;
+}
+
+export const createPost = (post) => {
+  return addDoc(createCollection, post);
+};
+
+export const getPosts = async () => {
+  const postDataBase = query(collection(db, "posts"));
+  return await getDocs(postDataBase);
+};
+
+export const editPosts = async (text, postId) => {
+  const docEdit = doc(db, "posts", postId);
+  return await updateDoc(docEdit , {
+    "text": text,
+    // "tag": hashTag,
+    // "data": currentDate
+});
+}
+
+//Função de cadastro
+export function signUp(email, pass, displayName) {
   createUserWithEmailAndPassword(auth, email, pass)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log("entrou", user);
+      updateProfile(user, { displayName: displayName });
+      navigateTo("#profile");
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -92,5 +81,5 @@ export const logInWithEmailAndPassword = (email, pass) => {
 //login com Google
 const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => {
- return signInWithPopup(auth, provider);
+  return signInWithPopup(auth, provider);
 };
