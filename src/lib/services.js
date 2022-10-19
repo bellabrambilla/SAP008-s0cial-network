@@ -11,9 +11,9 @@ import {
   addDoc,
   query,
   getDocs,
-  doc, 
+  doc,
   updateDoc,
-  orderBy
+  orderBy,
 } from './firebase.js';
 
 // iniciando autenticação
@@ -22,43 +22,42 @@ const auth = getAuth(firebaseApp);
 // inicializando a firestore
 const store = getFirestore(firebaseApp);
 
-// As funções descritas na documentação serão inicializadas e escritas aqui. LEMBRAR de exportá-las para os templates!
+// As funções descritas na documentação serão inicializadas e escritas aqui.
 export const createCollection = collection(store, 'posts');
 
 // Migrar para outra pasta
+
 export function templatePost(text) {
   const post = {
     name: auth.currentUser.displayName,
-    text,
-    user_id: 'Admin',
+    text: text.value,
+    user_id: auth.currentUser.uid,
     likes: [],
     comments: 0,
-    data: 0,
+    date: doc.currentDate,
   };
   return post;
 }
 
 // Função posts
-export const createPost = (post) => {
-  return addDoc(createCollection, post);
-};
+export const createPost = (post) => addDoc(createCollection, post);
 
 export const getPosts = async () => {
-  const postDataBase = query(collection(store, "posts"));
-  return await getDocs(postDataBase);
+  const postDataBase = query(collection(store, 'posts'));
+  return getDocs(postDataBase);
 };
 
 export const editPosts = async (text, postId) => {
-  const docEdit = doc(store, "posts", postId);
-  return await updateDoc(docEdit , {
-    "text": text,
+  const docEdit = doc(store, 'posts', postId);
+  return updateDoc(docEdit, {
+    text: text.value,
     // "tag": hashTag,
     // "data": currentDate
-});
-}
+  });
+};
 
 // Função de cadastro
-export function signUp(email, pass, displayName, photoUrl) {
+export function signUp(email, pass, displayName, photoUrl, uid) {
   return createUserWithEmailAndPassword(auth, email, pass);
 }
 
