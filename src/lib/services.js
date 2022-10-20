@@ -14,6 +14,7 @@ import {
   doc,
   updateDoc,
   orderBy,
+  updateProfile,
 } from './firebase.js';
 
 // iniciando autenticação
@@ -30,11 +31,11 @@ export const createCollection = collection(store, 'posts');
 export function templatePost(text) {
   const post = {
     name: auth.currentUser.displayName,
-    text: text.value,
+    text,
     user_id: auth.currentUser.uid,
     likes: [],
     comments: 0,
-    date: doc.currentDate,
+    date: 0,
   };
   return post;
 }
@@ -42,19 +43,29 @@ export function templatePost(text) {
 // Função posts
 export const createPost = (post) => addDoc(createCollection, post);
 
-export const getPosts = async () => {
+// export const getPosts = async () => {
+//   const postDataBase = query(collection(store, 'posts'));
+//   return getDocs(postDataBase);
+// };
+export const getPosts = () => {
   const postDataBase = query(collection(store, 'posts'));
   return getDocs(postDataBase);
 };
-
-export const editPosts = async (text, postId) => {
+// export const editPosts = async (text, postId) => {
+//   const docEdit = doc(store, 'posts', postId);
+//   return updateDoc(docEdit, {
+//     text,
+//     // "tag": hashTag,
+//     // "data": currentDate
+//   });
+// };
+export const editPosts = (text, postId) => {
   const docEdit = doc(store, 'posts', postId);
   return updateDoc(docEdit, {
-    text: text.value,
-    // "tag": hashTag,
-    // "data": currentDate
+    text,
   });
 };
+
 
 // Função de cadastro
 export function signUp(email, pass, displayName, photoUrl, uid) {

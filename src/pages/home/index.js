@@ -1,5 +1,7 @@
-import { getAuth } from '../../lib/firebase.js';
-import { templatePost, createPost, getPosts, editPosts} from '../../lib/services.js';
+import { getAuth, updateDoc, updateProfile } from '../../lib/firebase.js';
+import {
+  templatePost, createPost, getPosts, editPosts,
+} from '../../lib/services.js';
 
 const auth = getAuth();
 export default () => {
@@ -37,6 +39,8 @@ export default () => {
     event.preventDefault();
     // pensar em type error pra texto vazio
     const template = textPost.value;
+    console.log(templatePost(template));
+    console.log(template);
     createPost(templatePost(template))
       .then(() => {
         printPost.innerHTML += template;
@@ -65,19 +69,22 @@ export default () => {
       // elementopai.insertBefore (elemento novo, elemento de referência.childNodes[posição])
       printPost.insertBefore(div, printPost.childNodes[0]);
       const editButton = div.querySelector('#editPost');
-      // const editText = containerHome.querySelector('#textPost');
-      // const editId = editButton.getAttribute('data-edit');
+      // editButton.style.display = 'none';
+      const editText = containerHome.querySelector('#textPost');
+      const editId = editButton.getAttribute('data-edit');
       // console.log(editText);
 
       // editPosts(textPost.value, doc.id).then(() => document.location.reload());
-
-      //   if doc_id === auth.currentUser.uid
-      //         .collection("posts")
-      //   .orderBy("", "asc")
+      // const showButtons = () => {
+      //   if (doc.id === auth.currentUser.uid) {
+      //     editButton.style.display = 'block';
+      //   }
+      // };
       const postEdit = () => {
-        editPosts(textPost.value, doc.id)
+        editPosts(editText.value, editId)
           .then(() => {
-            document.location.reload();
+              console.log('oi');
+           // document.location.reload();
           });
       };
       editButton.addEventListener('click', postEdit);
