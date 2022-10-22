@@ -1,7 +1,10 @@
-import { getAuth, updateDoc, updateProfile } from '../../lib/firebase.js';
+import {
+  collection, getAuth, updateDoc, updateProfile,
+} from '../../lib/firebase.js';
 import {
   templatePost, createPost, getPosts, editPosts,
 } from '../../lib/services.js';
+import { postErrors } from '../../validation/index.js';
 
 const auth = getAuth();
 export default () => {
@@ -21,6 +24,7 @@ export default () => {
      <form id="formPost">
         <input type="textarea" class="inputPost" id="inputPost" placeholder="Escreva aqui"> </input>
         <button type="submit" class"btn subimitPost" id="btnPost">Enviar</btn>
+        <p class="post-error"></p>
      </form>
     </section>
     <article class="feed" id="printPost">
@@ -34,61 +38,70 @@ export default () => {
   const btnPost = containerHome.querySelector('#btnPost');
   const textPost = containerHome.querySelector('#inputPost');
   const printPost = containerHome.querySelector('#printPost');
+  const postError = containerHome.querySelector('#post-error');
+
+  function createTemplate(name, date, text, id) {
+    const template = document.createElement('div');
+    template.className = 'contentPost';
+    template.innerHTML = `<hr>
+    <p>${name}</p>
+    <p>${date}</p>
+    <p class="text-post" id="textPost" contenteditable="false">${text}</p>
+    <p class="post-error"></p>
+    <button type="button" class="edit-button" id="editPost" data-edit="${id}">Editar</button>
+    <button type="button" class="delete-button">Excluir</button>
+    <hr>
+      `;
+
+    return template.innerHTML;
+  }
 
   const postCreation = (event) => {
     event.preventDefault();
+    const text = textPost.value;
     // pensar em type error pra texto vazio
-    const template = textPost.value;
-    console.log(templatePost(template));
-    console.log(template);
-    createPost(templatePost(template))
-      .then(() => {
-        printPost.innerHTML += template;
+    const post = templatePost(text);
+    createPost(post)
+      .then((docRef) => {
+        console.log(text);
+        const newPost = createTemplate(post.name, post.date, post.text, docRef.id);
+        printPost.innerHTML += newPost;
       })
       .catch((error) => {
-        alert(`${error}Algo deu errado, tente novamente.`);
+        // const errorCode = error.code;
+        // postErrors(text, postError, errorCode);
       });
   };
 
   btnPost.addEventListener('click', postCreation);
 
+  let docId = '';
   getPosts().then((result) => {
     printPost.innerHTML = '';
     result.forEach((doc) => {
       const data = doc.data();
-      const div = document.createElement('div');
-      div.className = 'contentPost';
-      div.innerHTML = `<hr>
-        <p>${data.name}</p>
-        <p>${data.date}</p>
-        <p class="text-post" id="textPost" contenteditable="false">${data.text}</p>
-        <button type="button" class="edit-button" id="editPost" data-edit="${doc.id}">Editar</button>
-        <button type="button" class="delete-button">Excluir</button>
-        <hr>
-        `;
+      createTemplate(data.name, data.date, data.text, doc.id);
+      docId = doc.id;
       // elementopai.insertBefore (elemento novo, elemento de referência.childNodes[posição])
-      printPost.insertBefore(div, printPost.childNodes[0]);
-      const editButton = div.querySelector('#editPost');
-      // editButton.style.display = 'none';
-      const editText = containerHome.querySelector('#textPost');
-      const editId = editButton.getAttribute('data-edit');
-      // console.log(editText);
-
-      // editPosts(textPost.value, doc.id).then(() => document.location.reload());
-      // const showButtons = () => {
-      //   if (doc.id === auth.currentUser.uid) {
-      //     editButton.style.display = 'block';
-      //   }
-      // };
-      const postEdit = () => {
-        editPosts(editText.value, editId)
-          .then(() => {
-              console.log('oi');
-           // document.location.reload();
-          });
-      };
-      editButton.addEventListener('click', postEdit);
+      printPost.innerHTML += createTemplate(data.name, data.date, data.text, doc.id);
     });
   });
+
+  const editButton = containerHome.querySelectorAll('#editPost');
+  const postEdit = () => {
+    const text = textPost.value;
+    if (auth.CurrentUser.uid === auth.user.uid) {
+      editPosts(text, docId)
+        .then((docRef) => {
+          console.log(docRef);
+          document.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    editButton.addEventListener('click', postEdit);
+
+  };
   return containerHome;
 };
