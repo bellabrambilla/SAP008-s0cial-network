@@ -46,10 +46,11 @@ export default () => {
     template.innerHTML = `<hr>
     <p>${name}</p>
     <p>${date}</p>
-    <p class="text-post" id="textPost" contenteditable="false">${text}</p>
+    <textarea class="text-post" id="textPost" disabled data-post-id="${id}">${text}</textarea>
     <p class="post-error"></p>
-    <button type="button" class="edit-button" id="editPost" data-edit="${id}">Editar</button>
-    <button type="button" class="delete-button">Excluir</button>
+    <button type="button" class="edit-button" id="editPost" data-edit-id="${id}">Editar</button>
+    <button type="button" class="save-button" id="save-button" data-save-id="${id}">Salvar</button>
+    <button type="button" class="delete-button" id="delete-button" data-delete-id="${id}">Excluir</button>
     <hr>
       `;
 
@@ -63,7 +64,6 @@ export default () => {
     const post = templatePost(text);
     createPost(post)
       .then((docRef) => {
-        console.log(text);
         const newPost = createTemplate(post.name, post.date, post.text, docRef.id);
         printPost.innerHTML += newPost;
       })
@@ -75,33 +75,36 @@ export default () => {
 
   btnPost.addEventListener('click', postCreation);
 
-  let docId = '';
   getPosts().then((result) => {
     printPost.innerHTML = '';
     result.forEach((doc) => {
       const data = doc.data();
       createTemplate(data.name, data.date, data.text, doc.id);
-      docId = doc.id;
       // elementopai.insertBefore (elemento novo, elemento de referência.childNodes[posição])
       printPost.innerHTML += createTemplate(data.name, data.date, data.text, doc.id);
     });
   });
 
-  const editButton = containerHome.querySelectorAll('#editPost');
-  const postEdit = () => {
-    const text = textPost.value;
-    if (auth.CurrentUser.uid === auth.user.uid) {
-      editPosts(text, docId)
-        .then((docRef) => {
-          console.log(docRef);
-          document.location.reload();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    editButton.addEventListener('click', postEdit);
+  // Editando os posts
+  const editButtons = containerHome.querySelectorAll('#editPost');
+  editButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const postEdit = e.currentTarget.dataset.editId;
+      const saveEdit = containerHome.querySelector(`[data-save-id=${postEdit}]`);
+      const textEdit = containerHome.querySelector(`[data-post-id=${postEdit}]`);
+      const editButton = containerHome.querySelector(`[data-edit-id=${postEdit}]`);
+      const btnDelete = containerHome.querySelector(`[data-delete-id=${postEdit}]`);
 
-  };
+      textEdit.removeAttribute('disabled');
+      editButton.classList.add('hide');
+      btnDelete.classList.add('hide');
+
+      saveEdit.addEventListener('click', async () => {
+        await editPosts(postEdit, textEdit.value);
+        textEdit.setAttribute('false');
+      });
+    });
+  });
+
   return containerHome;
 };
