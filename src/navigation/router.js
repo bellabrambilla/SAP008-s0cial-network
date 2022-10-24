@@ -25,6 +25,5 @@ export const router = () => {
       break;
     default:
       alert('Page not found!');
-        // colocar outros cases
   }
 };

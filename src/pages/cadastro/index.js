@@ -1,7 +1,7 @@
 // Importar serviço, se houver.
 import { signUp, signInWithGoogle } from '../../lib/services.js';
 import { navigateTo } from '../../navigation/navigate.js';
-import { updateProfile } from '../../lib/firebase.js';
+import { updateProfile, GoogleAuthProvider, getAuth } from '../../lib/firebase.js';
 import { registerErrors, validPass } from '../../validation/index.js';
 
 export default () => {
@@ -58,19 +58,20 @@ export default () => {
     signUp(email.value, pass.value, name.value)
       .then((userCredential) => {
         // Signed in
+        console.log(userCredential);
         const user = userCredential.user;
         updateProfile(user, {
-          displayName,
-          photoUrl,
-        });
-        navigateTo('#profile');
+          displayName: name.value,
+        })
+          .then(() => {
+            navigateTo('#home');
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, ':', errorMessage);
         registerErrors(errorCode, registerError);
-        validPass(pass, password2, registerError);
       });
   };
   const googleLogin = (event) => {
@@ -83,7 +84,7 @@ export default () => {
         // The signed-in user info.
         const user = result.user;
         console.log(token, user);
-        navigateTo('#profile');
+        navigateTo('#home');
       })
       .catch((error) => {
         // Handle Errors here.

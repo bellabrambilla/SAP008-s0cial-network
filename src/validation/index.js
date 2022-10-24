@@ -26,3 +26,9 @@ export const validPass = (pass, password2, registerError) => {
     registerError.innerHTML = 'As senhas não são iguais. Por favor, insira senhas válidas';
   }
 };
+
+export const postErrors = (text) => {
+  if (text.value === '') {
+    postErrorSection.innerHTML = 'Seu post está vazio! Por favor, insira um texto antes de enviar';
+  }
+};

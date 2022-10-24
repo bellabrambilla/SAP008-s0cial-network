@@ -25,7 +25,7 @@ export default () => {
       </div>
       <div class="conteiner-login">
         <div class="logo">
-         <img class="imagem" src="../img/miawpaw.png">
+         <img class="imagem" alt="logo-paw" src="../img/miawpaw.png">
         </div>
         <form class="login" id="form">
           <div class="inputs">

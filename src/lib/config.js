@@ -1,6 +1,5 @@
 import { initializeApp } from './firebase.js';
 
-// Configurando a firebase
 const firebaseConfig = {
   apiKey: 'AIzaSyCZJLz1dq8bI3mQvcOxXpbZXEj_dd7dwOE',
   authDomain: 'social-network-mia.firebaseapp.com',
@@ -11,5 +10,4 @@ const firebaseConfig = {
   measurementId: 'G-KHPWJXZL63',
 };
 
-// iniciando o Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
