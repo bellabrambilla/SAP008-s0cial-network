@@ -53,7 +53,7 @@ export default () => {
     <button type="button" class="edit-button post ${isUserPost ? '' : 'hide'}" id="editPost" data-user-id="${userId}" data-edit-id="${postId}">Editar</button>
     <button type="button" class="save-button post ${isUserPost ? '' : 'hide'}" id="save-button" data-post-id="${postId}">Salvar</button>
     <button type="button" class="delete-button post ${isUserPost ? '' : 'hide'}" id="delete-button" data-delete-id="${postId}">Excluir</button>
-    <button type="button" class="like-button post" id="like-button" data-post-id="${postId}">&#128571</button>
+    <button type="button" class="like-button post" id="like-button" data-like-id="${postId}">&#128571</button>
     <hr>
       `;
 
@@ -89,19 +89,20 @@ export default () => {
   });
 
   // Editando os posts
-  const editButtons = Array.from(containerHome.querySelectorAll('[data-edit-id]'));
-  const deleteButtons = Array.from(containerHome.querySelectorAll('[data-delete-id]'));
   const allPosts = containerHome.querySelector('[data-new-post]');
- 
+
   allPosts.addEventListener('click', (e) => {
     const { target } = e;
-    const editButton = target.dataset.editId;
-    console.log(target);
-    if (editButton) {
-    const textEdit = containerHome.querySelector(`[data-text-id="${editButton}"]`);
-    // const textEdit = target.dataset.textId;
-    console.log(textEdit);
-    textEdit.removeAttribute('disabled');
+    const postId = target.dataset.editId;
+    if (postId) {
+      const textEdit = containerHome.querySelector(`[data-text-id="${postId}"]`);
+      const btnSave = containerHome.querySelector(`[data-post-id="${postId}"]`);
+      console.log(btnSave);
+      textEdit.removeAttribute('disabled');
+      btnSave.addEventListener('click', async () => {
+        await editPosts(textEdit.value, postId);
+        textEdit.setAttribute('disabled', '');
+      });
     }
   });
   // editButtons.forEach((btn) => {
