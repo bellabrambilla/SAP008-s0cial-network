@@ -1,0 +1,83 @@
+.desktop-register{
+    display: none;
+}
+.desktop-tela-cadastro{
+    display: flex;
+    background:linear-gradient(180deg, rgba(183, 196, 244, 0.46) 0%, rgba(183, 209, 244, 0.46) 46.7%, rgba(180, 237, 245, 0.276) 64.51%, rgba(183, 196, 244, 0) 100%);
+}
+.conteiner-cadastro{
+    background:linear-gradient(180deg, rgba(213, 228, 202, 0.44) 0.63%, rgba(158, 233, 243, 0.94) 18.85%, rgba(224, 201, 244, 0.85) 52.84%, rgba(248, 189, 187, 0.64) 76.67%, #FFD994 100%) no-repeat;
+    display: flex;
+    justify-content: space-between;
+    min-height: 100vh;
+    width: 100%;
+    flex-direction: column;
+}
+.conteiner-input{
+    padding:5%;
+    text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+.register{
+    align-self: center;
+    width: 65%;
+    font-size: 2vh;
+    margin-top:5%;
+}
+
+.logo-paw{
+    text-align: center;
+}
+.logo-cadastro{
+    max-width: 300px;
+    max-height: 400px;
+    width:auto;
+    height:auto;
+    margin-top:5%;
+}
+.pass{
+    padding:6%;
+}
+.btn{
+    align-self: center;   
+}
+
+.btn-back{
+    height: 35px;
+}
+.back-to-login{
+    width:35%;
+    margin-left:15%;
+}
+
+#btn-entrar-google{
+    margin-top:10%;
+}
+
+#btn-register{
+    width:100%;
+
+}
+.register-error{
+    color: red;
+    margin-bottom: 8%;
+}
+.footer-info{
+    width: 100%;
+}
+
+@media (min-width:500px) {
+    .desktop-register{
+     display:inline;
+     border:1px solid black;  
+    }
+    .desktop-tela-cadastro{
+     justify-content: space-evenly;
+     height: 100vh;
+     align-items: center;
+    }
+    .conteiner-cadastro{
+     max-width:400px;
+     min-height:unset;
+     max-height:800px;  
+    }
+}

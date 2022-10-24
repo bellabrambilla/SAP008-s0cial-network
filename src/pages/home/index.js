@@ -1,29 +1,35 @@
+import { getAuth } from '../../lib/firebase.js';
 import { templatePost, createPost, getPosts, editPosts } from "../../lib/services.js";
 
+
 export default () => {
+  const auth = getAuth();
+
   let containerHome = document.createElement("div");
-
-
-  //TROCAR CLASSES TAGS ESTILOS CSS
+  containerHome.className = 'home';
   const home = `
+  <div class="home">  
     <header>
-      <nav>
+      <nav class="menu">
       Menu
       </nav>
+      <img class="home-logo" src="../img/homelogo.png">
     </header>
     <section class="welcome">
-    Bem-vinde, NOME
+    <p>Bem-vinde, <b>${auth.currentUser.displayName}</b></p>
     </section>
     <section class="post">
-     <form id="formPost">
-        <input type="textarea" class="inputPost" id="inputPost" placeholder="Escreva aqui"> </input>
-        <button type="submit" class"btn subimitPost" id="btnPost">Enviar</btn>
+     <form id="formPost" class="form">
+        <img class="avatar" src="../img/avatarcat.png">
+        <textarea class="input-post" id="inputPost" placeholder="Escreva aqui 🐈"></textarea>
+        <button type="submit" class="submit-post" id="btnPost">Enviar</btn>
      </form>
     </section>
     <article class="feed" id="printPost">
     </article>
     <footer>
     </footer>
+</div>
     `;
   containerHome.innerHTML = home;
 
@@ -52,15 +58,21 @@ export default () => {
     result.forEach((doc) => {
       const data = doc.data();
       const div = document.createElement("div");
-      div.className = "contentPost";
-      div.innerHTML = `<hr>
-        
-        <p>${data.user_id}</p>
+      div.className = "content-post";
+      div.innerHTML = `
+          <div class="post-header">
+            <img class="avatar" src="../img/avatarcat.png">      
+            <text class="post-header-text"><b>${data.user_id}</b></text>
+            <button type="button" class="post-btn" id="editPost" data-edit="${doc.id}">Editar</button>
+            <button type="button" class="post-btn">Excluir</button>
+         </div>
         <p class="text-post" id="textPost" contenteditable="false">${data.text}</p>
-        <button type="button" class="edit-button" id="editPost" data-edit="${doc.id}">Editar</button>
-        <button type="button" class="delete-button">Excluir</button>
-
         <hr>
+        <div class="post-footer">
+            <button type="button" class="likecoment-btn">Curtir</button>
+            <button type="button" class="likecoment-btn">Comentar</button>
+        </div>
+
         `;
       //elementopai.insertBefore (elemento novo, elemento de referência.childNodes[posição])
       printPost.insertBefore(div, printPost.childNodes[0]);
@@ -68,10 +80,10 @@ export default () => {
       const editButton = containerHome.querySelector("#editPost");
       const editText = containerHome.querySelector("#textPost");
       const editId = editButton.getAttribute("data-edit");
-      editButton.addEventListener("click", () => {
-        if 
+      // editButton.addEventListener("click", () => {
+      //   if 
 
-      });
+      // });
       console.log(editText);
       // editPosts(text, postId).then(() => document. location. reload());
     });
