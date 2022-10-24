@@ -1,8 +1,8 @@
 import {
-  collection, getAuth, updateDoc, updateProfile,
+  getAuth,
 } from '../../lib/firebase.js';
 import {
-  templatePost, createPost, getPosts, editPosts,
+  templatePost, createPost, getPosts, editPosts, deletePost,
 } from '../../lib/services.js';
 import { postErrors } from '../../validation/index.js';
 
@@ -97,7 +97,6 @@ export default () => {
     if (postId) {
       const textEdit = containerHome.querySelector(`[data-text-id="${postId}"]`);
       const btnSave = containerHome.querySelector(`[data-post-id="${postId}"]`);
-      console.log(btnSave);
       textEdit.removeAttribute('disabled');
       btnSave.addEventListener('click', async () => {
         await editPosts(textEdit.value, postId);
@@ -105,26 +104,20 @@ export default () => {
       });
     }
   });
-  // editButtons.forEach((btn) => {
-  //   btn.addEventListener('click', (e) => {
-  //     const postEdit = e.currentTarget.dataset.postId;
-  //     const btnSaveEdit = containerHome.querySelector(`[data-save-id=${postEdit}]`);
-  //     const textEdit = containerHome.querySelector(`[data-post-id=${postEdit}] textarea`);
-  //     const editButton = containerHome.querySelector(`[data-edit-id=${postEdit}]`);
-  //     const btnDelete = containerHome.querySelector(`[data-delete-id=${postEdit}]`);
-  //     console.log(editButtons);
 
-  //     textEdit.removeAttribute('disabled');
-  //     editButton.classList.add('hide');
-  //     btnDelete.classList.remove('hide');
-  //     btnSaveEdit.classList.remove('hide');
-
-  //     btnSaveEdit.addEventListener('click', async () => {
-  //       await editPosts(textEdit.value, postEdit);
-  //       textEdit.setAttribute('disable');
-  //     });
-  //   });
-  // });
+  allPosts.addEventListener('click', (e) => {
+    const { target } = e;
+    const deleteId = target.dataset.deleteId;
+    console.log(deleteId);
+    if (deleteId) {
+      const btnDelete = containerHome.querySelector(`[data-delete-id="${deleteId}"]`);
+      // confirm edit entraria aqui
+      btnDelete.addEventListener('click', async () => {
+        await deletePost(deleteId);
+        // o post deve apagar em seguida
+      });
+    }
+  });
 
   return containerHome;
 };

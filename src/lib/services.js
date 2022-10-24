@@ -14,7 +14,7 @@ import {
   doc,
   updateDoc,
   orderBy,
-  updateProfile,
+  deleteDoc,
 } from './firebase.js';
 
 // iniciando autenticação
@@ -60,6 +60,11 @@ export const editPosts = (text, postId) => {
   return updateDoc(docEdit, {
     text,
   });
+};
+
+export const deletePost = (postId) => {
+  const docDelete = doc(store, 'posts', postId);
+  return deleteDoc(docDelete);
 };
 
 // Função de cadastro
