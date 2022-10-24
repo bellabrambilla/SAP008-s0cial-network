@@ -32,7 +32,7 @@ export function templatePost(text) {
   const post = {
     name: auth.currentUser.displayName,
     text,
-    id: auth.currentUser.uid,
+    userId: auth.currentUser.uid,
     likes: [],
     comments: 0,
     date: new Date().toLocaleDateString('pt-br'),
@@ -63,8 +63,8 @@ export const editPosts = (text, postId) => {
 };
 
 // Função de cadastro
-export function signUp(email, pass, displayName, photoUrl, uid) {
-  return createUserWithEmailAndPassword(auth, email, pass, displayName, photoUrl, uid);
+export function signUp(email, pass, displayName) {
+  return createUserWithEmailAndPassword(auth, email, pass);
 }
 
 // login com e-mail e senha

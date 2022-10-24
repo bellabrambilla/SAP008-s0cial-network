@@ -1,4 +1,4 @@
 // navegador
-export const navigateTo = (hash) =>{
+export const navigateTo = (hash) => {
   window.location.hash = hash;
 };
