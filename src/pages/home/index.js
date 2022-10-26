@@ -46,7 +46,7 @@ export default () => {
   function createTemplate(name, date, text, postId, userId) {
     const template = document.createElement('div');
     template.dataset.postId = postId;
-    template.className = 'contentPost';
+    template.className = 'content-post';
     const isUserPost = auth.currentUser.uid === userId;
     template.innerHTML = `
     <div class="content-post">
