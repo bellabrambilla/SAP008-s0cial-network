@@ -1,3 +1,175 @@
 .hide{
     display: none;
 }
+.home{
+    background: #DCE0F6;
+    min-height: 800px;
+}
+
+p{
+    color: #5B5959
+}
+
+.menu{
+    display: none;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+}
+
+.home-logo{
+    width: 70%;
+    margin-left: 5%;
+}
+
+.welcome{
+    text-align: center;
+    font-family: 'Krub', sans-serif;
+    text-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+}
+
+.form{
+    display: flex;
+    background: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+    margin-bottom: 2.5%;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.avatar{
+    border-radius: 100%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 10%;
+    height: 100%;
+    margin: 1%;
+}
+
+.input-post{
+    overflow: hidden;
+    font-family: 'Krub', sans-serif;
+    border: none;
+    resize: none;
+    height: 20%;
+    width: 80%;
+    margin: 3%;
+}
+
+.submit-post{
+    font-family: 'Krub', sans-serif;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    background: #deafe6;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-top: 10%; 
+}
+
+.container-btn{
+    margin-top: 1px;
+    margin-right: 9px;
+
+}
+
+.post-btn{
+    font-family: 'Krub', sans-serif;
+    border: none; 
+    color: #304b72;
+    padding: 0%;
+    text-decoration: underline;
+    background: none;
+}
+.post-header{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.post-header-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2px auto 3px 4px;
+}
+
+.name{
+    color: #5B5959;
+    font-weight: bold;
+    margin: 3%;
+
+}
+
+.content-post{
+    font-family: 'Krub', sans-serif;
+    background: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 2.5%;
+    border-radius: 15px;
+    padding: 7px;
+}
+
+.text-post{
+    font-family: 'Krub', sans-serif;
+    margin: 2%;
+    width: 95%;
+    height: auto;
+    resize: none;
+    border: none;
+    background: #FFFFFF;
+    border-bottom: 1px solid darkgray;
+}
+
+.post-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding-top: -2%;
+}
+
+.likecoment-btn{
+    font-family: 'Krub', sans-serif;
+    border: none; 
+    color: #304b72;
+    padding: 0%;
+    margin-top: 2px;
+    margin-right: 9px;
+    background: none;
+}
+
+@media (min-width:500px){
+    .home-logo{
+       width: 30%;
+    }
+
+    .form{
+        display: flex;
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+
+    /* .post-header-text{
+        
+    } */
+
+    .post-btn{
+        margin-top: -6%;
+        margin-right: 9px;
+    }
+
+
+    .content-post{
+        margin-left: 30%;
+        margin-right: 30%;
+        margin-bottom: 1%;
+    }
+}

@@ -4,25 +4,28 @@ import {
 import {
   templatePost, createPost, getPosts, editPosts, deletePost,
 } from '../../lib/services.js';
+import { navigateTo } from '../../navigation/navigate.js';
 import { postErrors } from '../../validation/index.js';
 
 const auth = getAuth();
 export default () => {
   const containerHome = document.createElement('div');
-  // TROCAR CLASSES TAGS ESTILOS CSS
   const home = `
+  <div class="home">
     <header>
-      <nav>
+      <nav class="menu">
       Menu
       </nav>
+      <img class="home-logo" src="../img/homelogo.png">
     </header>
     <section class="welcome">
-    Bem-vinde, ${auth.currentUser.displayName}
+    <p>Bem-vinde, <b>${auth.currentUser.displayName}</b></p>
     </section>
     <section class="post">
-     <form id="formPost">
-        <input type="textarea" class="inputPost" id="inputPost" placeholder="Escreva aqui"> </input>
-        <button type="submit" class"btn subimitPost" id="btnPost">Enviar</btn>
+     <form id="formPost" class="form">
+        <img class="avatar" src="../img/avatarcat.png">
+        <textarea class="input-post" id="inputPost" placeholder="Escreva aqui 🐈"></textarea>
+        <button type="submit" class="submit-post" id="btnPost">Enviar</btn>
         <p class="post-error"></p>
      </form>
     </section>
@@ -30,6 +33,7 @@ export default () => {
     </article>
     <footer>
     </footer>
+  </div>
     `;
   containerHome.innerHTML = home;
 
@@ -42,19 +46,28 @@ export default () => {
   function createTemplate(name, date, text, postId, userId) {
     const template = document.createElement('div');
     template.dataset.postId = postId;
-    console.log(template);
     template.className = 'contentPost';
     const isUserPost = auth.currentUser.uid === userId;
-    template.innerHTML = `<hr>
-    <p>${name}</p>
-    <p>${date}</p>
+    template.innerHTML = `
+    <div class="content-post">
+    <div class="post-header">
+      <img class="avatar" src="../img/avatarcat.png">
+      <div class="post-header-text>      
+        <text class="name">${name} </text>
+        <p>${date}</p>
+        <div class='container-btn'>
+          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="editPost" data-user-id="${userId}" data-edit-id="${postId}">Editar</button>
+          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="save-button" data-post-id="${postId}">Salvar</button>
+          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="delete-button" data-delete-id="${postId}">Excluir</button>
+        </div>
+      </div>
+    </div>
     <textarea class="text-post" id="textPost" data-text-id="${postId}" disabled>${text}</textarea>
     <p class="post-error"></p>
-    <button type="button" class="edit-button post ${isUserPost ? '' : 'hide'}" id="editPost" data-user-id="${userId}" data-edit-id="${postId}">Editar</button>
-    <button type="button" class="save-button post ${isUserPost ? '' : 'hide'}" id="save-button" data-post-id="${postId}">Salvar</button>
-    <button type="button" class="delete-button post ${isUserPost ? '' : 'hide'}" id="delete-button" data-delete-id="${postId}">Excluir</button>
-    <button type="button" class="like-button post" id="like-button" data-like-id="${postId}">&#128571</button>
-    <hr>
+    <div class="post-footer">
+    <button type="button" class="likecoment-btn" id="like-button" data-like-id="${postId}">&#128571</button>
+    </div>
+    </div>
       `;
 
     return template.innerHTML;
@@ -83,7 +96,6 @@ export default () => {
     result.forEach((doc) => {
       const data = doc.data();
       createTemplate(data.name, data.date, data.text, doc.id, data.userId);
-      // elementopai.insertBefore (elemento novo, elemento de referência.childNodes[posição])
       printPost.innerHTML += createTemplate(data.name, data.date, data.text, doc.id, data.userId);
     });
   });
@@ -114,6 +126,7 @@ export default () => {
       // confirm edit entraria aqui
       btnDelete.addEventListener('click', async () => {
         await deletePost(deleteId);
+        navigateTo('#home');
         // o post deve apagar em seguida
       });
     }

@@ -1,12 +1,12 @@
-//Importar serviço, se houver.
-import { navigateTo } from "../../navigation/navigate.js";
-import { signOut, getAuth } from "../../lib/firebase.js";
+// Importar serviço, se houver.
+import { navigateTo } from '../../navigation/navigate.js';
+import { signOut, getAuth } from '../../lib/firebase.js';
 
-const auth = getAuth()
+const auth = getAuth();
 export default () => {
-  let containerProfile= document.createElement("div")
-  containerProfile.className= "telaProfile"
-  let profile = `
+  const containerProfile = document.createElement('div');
+  containerProfile.className = 'telaProfile';
+  const profile = `
   <header>
   <button class="btnLogout" type="submit">Sair</button>
   <button class="btnFeed" type="subimit" id="btnFeed">Feed</button>
@@ -27,14 +27,14 @@ export default () => {
     </section>
   </main>
   `;
-  containerProfile.innerHTML= profile
-  
-  const logOut = containerProfile.querySelector("btnLogout")
-  const goToFeed = containerProfile.querySelector("#btnFeed")
-  const feed =(event) =>{
+  containerProfile.innerHTML = profile;
+
+  const logOut = containerProfile.querySelector('btnLogout');
+  const goToFeed = containerProfile.querySelector('#btnFeed');
+  const feed = (event) => {
     event.preventDefault();
-    navigateTo("#home");
-  }
+    navigateTo('#home');
+  };
   // const logOuts = ()=>{
   // signOut(auth)
   // .then(() => {
@@ -44,8 +44,8 @@ export default () => {
   // })
   // }
 
-  goToFeed.addEventListener("click",feed);
+  goToFeed.addEventListener('click', feed);
   // logOut.addEventListener("click", signOut(auth));
 
   return containerProfile;
-}
+};
