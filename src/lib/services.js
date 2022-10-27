@@ -5,7 +5,6 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  onAuthStateChanged,
   getFirestore,
   collection,
   addDoc,
@@ -13,20 +12,13 @@ import {
   getDocs,
   doc,
   updateDoc,
-  orderBy,
-  updateProfile,
+  deleteDoc,
 } from './firebase.js';
 
-// iniciando autenticação
 const auth = getAuth(firebaseApp);
-
-// inicializando a firestore
 const store = getFirestore(firebaseApp);
 
-// As funções descritas na documentação serão inicializadas e escritas aqui.
 export const createCollection = collection(store, 'posts');
-
-// Migrar para outra pasta
 
 export function templatePost(text) {
   const post = {
@@ -40,7 +32,6 @@ export function templatePost(text) {
   return post;
 }
 
-// Função posts
 export const createPost = (post) => addDoc(createCollection, post);
 
 export const getPosts = () => {
@@ -62,15 +53,17 @@ export const editPosts = (text, postId) => {
   });
 };
 
-// Função de cadastro
+export const deletePost = (postId) => {
+  const docDelete = doc(store, 'posts', postId);
+  return deleteDoc(docDelete);
+};
+
 export function signUp(email, pass, displayName) {
   return createUserWithEmailAndPassword(auth, email, pass);
 }
 
-// login com e-mail e senha
 // eslint-disable-next-line max-len
 export const logInWithEmailAndPassword = (email, pass) => signInWithEmailAndPassword(auth, email, pass);
 
-// login com Google
 const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => signInWithPopup(auth, provider);
