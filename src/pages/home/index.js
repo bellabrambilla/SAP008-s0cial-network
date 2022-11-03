@@ -2,7 +2,7 @@ import {
   getAuth,
 } from '../../lib/firebase.js';
 import {
-  templatePost, createPost, getPosts, editPosts, deletePost,
+  templatePost, createPost, getPosts, editPosts, deletePost, likePost, 
 } from '../../lib/services.js';
 import { navigateTo } from '../../navigation/navigate.js';
 import { postErrors } from '../../validation/index.js';
@@ -43,7 +43,7 @@ export default () => {
   const printPost = containerHome.querySelector('#printPost');
   const postError = containerHome.querySelector('#post-error');
 
-  function createTemplate(name, date, text, postId, userId) {
+  function createTemplate(name, date, text, likes, postId, userId) {
     const template = document.createElement('div');
     template.dataset.postId = postId;
     template.className = 'content-post';
@@ -65,11 +65,10 @@ export default () => {
     <textarea class="text-post" id="textPost" data-text-id="${postId}" disabled>${text}</textarea>
     <p class="post-error"></p>
     <div class="post-footer">
-    <button type="button" class="likecoment-btn" id="like-button" data-like-id="${postId}">&#128571</button>
+   <p data-num-like="${postId}">${likes.length || ''}</p><button type="button" class="likecoment-btn" id="btnLike" data-like-id="${postId}" >&#128571</button>
     </div>
     </div>
       `;
-
     return template.innerHTML;
   }
 
@@ -80,7 +79,8 @@ export default () => {
     const post = templatePost(text);
     createPost(post)
       .then((docRef) => {
-        const newPost = createTemplate(post.name, post.date, post.text, docRef.id, post.userId);
+        const newPost = createTemplate(post.name, post.date, post.text, post.likes, docRef.id, post.userId);
+        console.log(post.likes)
         printPost.innerHTML += newPost;
       })
       .catch((error) => {
@@ -95,8 +95,7 @@ export default () => {
     printPost.innerHTML = '';
     result.forEach((doc) => {
       const data = doc.data();
-      createTemplate(data.name, data.date, data.text, doc.id, data.userId);
-      printPost.innerHTML += createTemplate(data.name, data.date, data.text, doc.id, data.userId);
+      printPost.innerHTML += createTemplate(data.name, data.date, data.text, data.likes, doc.id, data.userId);
     });
   });
 
@@ -106,6 +105,8 @@ export default () => {
   allPosts.addEventListener('click', (e) => {
     const { target } = e;
     const postId = target.dataset.editId;
+    const deleteId = target.dataset.deleteId;
+    const likeId = target.dataset.likeId;
     if (postId) {
       const textEdit = containerHome.querySelector(`[data-text-id="${postId}"]`);
       const btnSave = containerHome.querySelector(`[data-post-id="${postId}"]`);
@@ -115,15 +116,14 @@ export default () => {
         textEdit.setAttribute('disabled', '');
       });
     }
-  });
+  
+    if (likeId) {  
+      likePost(likeId);
+    }
 
-  allPosts.addEventListener('click', async (e) => {
-    const { target } = e;
-    const deleteId = target.dataset.deleteId;
-    console.log(deleteId);
     if (deleteId) {
       if (confirm('Tem certeza que quer excluir esse post?')) {
-        await deletePost(deleteId);
+        deletePost(deleteId);
         const postElement = target.parentNode.parentNode.parentNode.parentNode;
         postElement.remove();
       }

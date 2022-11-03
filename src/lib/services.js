@@ -13,6 +13,9 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  getDoc,
+  arrayUnion,
+  arrayRemove,
 } from './firebase.js';
 
 const auth = getAuth(firebaseApp);
@@ -25,7 +28,7 @@ export function templatePost(text) {
     name: auth.currentUser.displayName,
     text,
     userId: auth.currentUser.uid,
-    likes: [],
+    likes: [ ],
     comments: 0,
     date: new Date().toLocaleDateString('pt-br'),
   };
@@ -38,14 +41,7 @@ export const getPosts = () => {
   const postDataBase = query(collection(store, 'posts'));
   return getDocs(postDataBase);
 };
-// export const editPosts = async (text, postId) => {
-//   const docEdit = doc(store, 'posts', postId);
-//   return updateDoc(docEdit, {
-//     text,
-//     // "tag": hashTag,
-//     // "data": currentDate
-//   });
-// };
+
 export const editPosts = (text, postId) => {
   const docEdit = doc(store, 'posts', postId);
   return updateDoc(docEdit, {
@@ -57,6 +53,21 @@ export const deletePost = (postId) => {
   const docDelete = doc(store, 'posts', postId);
   return deleteDoc(docDelete);
 };
+
+//arrayRemove ( ... elements :  any [] ) : FieldValue
+export const likePost = async (postId) => {
+  const document = doc(store, 'posts', postId);
+  const docSnap = await getDoc(document);
+  const likeDoc = docSnap.data().likes;
+  const userId  = auth.currentUser.uid;
+
+      if (likeDoc.includes(userId)) {
+        updateDoc(document, { likes: arrayRemove(userId) })
+      }
+      else {
+        updateDoc(document, { likes: arrayUnion(userId) })
+      }
+  };
 
 export function signUp(email, pass, displayName) {
   return createUserWithEmailAndPassword(auth, email, pass);
