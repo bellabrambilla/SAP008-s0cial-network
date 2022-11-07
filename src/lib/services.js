@@ -16,6 +16,7 @@ import {
   getDoc,
   arrayUnion,
   arrayRemove,
+  orderBy,
 } from './firebase.js';
 
 const auth = getAuth(firebaseApp);
@@ -30,7 +31,7 @@ export function templatePost(text) {
     userId: auth.currentUser.uid,
     likes: [ ],
     comments: 0,
-    date: new Date().toLocaleDateString('pt-br'),
+    date: new Date(),
   };
   return post;
 }
@@ -38,7 +39,7 @@ export function templatePost(text) {
 export const createPost = (post) => addDoc(createCollection, post);
 
 export const getPosts = () => {
-  const postDataBase = query(collection(store, 'posts'));
+  const postDataBase = query(collection(store, 'posts'), orderBy('date', 'desc'));
   return getDocs(postDataBase);
 };
 
@@ -54,7 +55,6 @@ export const deletePost = (postId) => {
   return deleteDoc(docDelete);
 };
 
-//arrayRemove ( ... elements :  any [] ) : FieldValue
 export const likePost = async (postId) => {
   const document = doc(store, 'posts', postId);
   const docSnap = await getDoc(document);

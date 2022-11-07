@@ -48,17 +48,18 @@ export default () => {
     template.dataset.postId = postId;
     template.className = 'content-post';
     const isUserPost = auth.currentUser.uid === userId;
+    const formatedDate = date.toLocaleDateString("pt-br")
+    const formatedHour = `${date.getHours()}:${date.getMinutes()}`
     template.innerHTML = `
-    <div class="content-post">
     <div class="post-header">
       <img class="avatar" src="img/avatarcat.png">
       <div class="post-header-text>      
         <h2 class="name">${name} </h2>
-        <p>${date}</p>
+        <p>${formatedDate} às ${formatedHour}</p>
         <div class='container-btn'>
-          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="editPost" data-user-id="${userId}" data-edit-id="${postId}">Editar</button>
-          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="save-button" data-post-id="${postId}">Salvar</button>
-          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="delete-button" data-delete-id="${postId}">Excluir</button>
+          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="editPost" data-user-id="${userId}" data-edit-id="${postId}" >Editar</button>
+          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="save-button" data-save-id="${postId}">Salvar</button>
+          <button type="button" class="post-btn ${isUserPost ? '' : 'hide'}" id="delete-button" data-delete-id="${postId}" >Excluir</button>
         </div>
       </div>
     </div>
@@ -67,9 +68,8 @@ export default () => {
     <div class="post-footer">
    <p data-num-like="${postId}">${likes.length || ''}</p><button type="button" class="likecoment-btn" id="btnLike" data-like-id="${postId}" >&#128571</button>
     </div>
-    </div>
       `;
-    return template.innerHTML;
+    return template;
   }
 
   const postCreation = (event) => {
@@ -81,11 +81,12 @@ export default () => {
       .then((docRef) => {
         const newPost = createTemplate(post.name, post.date, post.text, post.likes, docRef.id, post.userId);
         console.log(post.likes)
-        printPost.innerHTML += newPost;
+        printPost.prepend(newPost);
       })
       .catch((error) => {
         // const errorCode = error.code;
         // postErrors(text, postError, errorCode);
+      console.log(error)
       });
   };
 
@@ -95,7 +96,7 @@ export default () => {
     printPost.innerHTML = '';
     result.forEach((doc) => {
       const data = doc.data();
-      printPost.innerHTML += createTemplate(data.name, data.date, data.text, data.likes, doc.id, data.userId);
+      printPost.appendChild(createTemplate(data.name, data.date.toDate(), data.text, data.likes, doc.id, data.userId));
     });
   });
 
@@ -104,15 +105,16 @@ export default () => {
 
   allPosts.addEventListener('click', (e) => {
     const { target } = e;
-    const postId = target.dataset.editId;
+    const editId = target.dataset.editId;
     const deleteId = target.dataset.deleteId;
     const likeId = target.dataset.likeId;
-    if (postId) {
-      const textEdit = containerHome.querySelector(`[data-text-id="${postId}"]`);
-      const btnSave = containerHome.querySelector(`[data-post-id="${postId}"]`);
+
+    if (editId) {
+      const textEdit = containerHome.querySelector(`[data-text-id="${editId}"]`);
+      const btnSave = containerHome.querySelector(`[data-save-id="${editId}"]`);
       textEdit.removeAttribute('disabled');
       btnSave.addEventListener('click', async () => {
-        await editPosts(textEdit.value, postId);
+        await editPosts(textEdit.value, editId);
         textEdit.setAttribute('disabled', '');
       });
     }
