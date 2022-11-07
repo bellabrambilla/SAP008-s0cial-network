@@ -21,7 +21,7 @@ export default () => {
         esse cillum dolore eu fugiat nulla pariatur.<br>
         Excepteur sint occaecat cupidatat non.
       </p>
-        <img class="imagem" alt="wollball" src="../../img/wollball.png">
+        <img class="imagem" alt="wollball" src="img/wollball.png">
       </div>
       <div class="conteiner-login">
         <div class="logo">
