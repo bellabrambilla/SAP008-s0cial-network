@@ -1,0 +1,9 @@
+
+.telaProfile{
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background:linear-gradient(180deg, rgba(213, 228, 202, 0.44) 0.63%, rgba(158, 233, 243, 0.94) 18.85%, rgba(224, 201, 244, 0.85) 52.84%, rgba(248, 189, 187, 0.64) 76.67%, #FFD994 100%) no-repeat;
+}
